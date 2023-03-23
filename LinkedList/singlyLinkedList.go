@@ -39,6 +39,7 @@ func (l *LinkedList) printNode() {
 func (l *LinkedList) deleteNode(data int) {
 	temp := l.head
 	var prev *Node
+	
 	if temp != nil && temp.data == data {
 		l.head = temp.next
 		return
@@ -63,6 +64,7 @@ func (l *LinkedList) deleteNode(data int) {
 func (l *LinkedList) insertion(nextTo int, data int) {
 	newNode := &Node{data, nil}
 	temp := l.head
+
 	for temp != nil && temp.data != nextTo {
 		temp = temp.next
 	}
@@ -76,6 +78,10 @@ func (l *LinkedList) insertion(nextTo int, data int) {
 	}
 	newNode.next = temp.next
 	temp.next = newNode
+}
+
+func(l *LinkedList)test(){
+
 }
 
 func main() {
