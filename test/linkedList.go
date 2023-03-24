@@ -93,15 +93,47 @@ func (l *LinkedList) deleteNode(data int) {
 	prev.next = curr.next
 }
 
+func (l *LinkedList) reverse() {
+	curr := l.head
+	var prev *Node
+
+	for curr != nil {
+		next := curr.next
+		curr.next = prev
+		prev = curr
+		curr = next
+	}
+	l.head = prev
+}
+
+func (l *LinkedList)ReverRec(){
+	if l.head == nil{
+		return
+	}
+	l.head = l.ReverRecHelper(l.head, l.head.next)
+}
+
+func (l *LinkedList)ReverRecHelper(node *Node, nextNode *Node)*Node{
+	if nextNode == nil{
+		l.tail = node
+		return node
+	}
+	newHead := l.ReverRecHelper(nextNode, nextNode.next)
+	nextNode.next = node
+	node.next = nil
+	return newHead
+}
+
 func main() {
 	list := LinkedList{}
 	list.addNode(10)
 	list.addNode(20)
 	list.addNode(30)
 	list.addNode(40)
+	list.addNode(50)
 
 	list.display()
-	list.deleteNode(40)
 	fmt.Println()
+	list.ReverRec()
 	list.display()
 }
