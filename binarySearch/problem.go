@@ -24,15 +24,17 @@ func binaryRec(array [10]int, target int) int {
 }
 
 func binaryRecHelper(array [10]int, target int, startIdx int, endIdx int) int {
+
 	middleValue := startIdx + (endIdx-startIdx)/2
 	if startIdx > endIdx {
 		return -1
 	}
+	
 	if array[middleValue] == target {
 		return middleValue
-	} else if array[middleValue] < target {
+	}else if array[middleValue] < target {
 		return binaryRecHelper(array, target, middleValue+1, endIdx)
-	} else{
+	}else{
 		return binaryRecHelper(array, target, startIdx, middleValue-1)
 	}
 
@@ -40,6 +42,10 @@ func binaryRecHelper(array [10]int, target int, startIdx int, endIdx int) int {
 
 func main() {
 	arr := [10]int{10, 24, 32, 40, 52, 61, 78, 80, 99, 111}
-	findIdex := binaryRec(arr, 32)
+	findIdex := binaryIter(arr, 52)
+	if findIdex == -1 {
+		fmt.Println("not found")
+		return
+	}
 	fmt.Printf("the index is: %d, and the value is: %d\n", findIdex, arr[findIdex])
 }

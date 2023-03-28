@@ -106,6 +106,9 @@ func (l *LinkedList) reverse() {
 	l.head = prev
 }
 
+
+
+
 func (l *LinkedList)ReverRec(){
 	if l.head == nil{
 		return
@@ -115,7 +118,7 @@ func (l *LinkedList)ReverRec(){
 
 func (l *LinkedList)ReverRecHelper(node *Node, nextNode *Node)*Node{
 	if nextNode == nil{
-		l.tail = node
+		// l.tail = node
 		return node
 	}
 	newHead := l.ReverRecHelper(nextNode, nextNode.next)
@@ -123,6 +126,9 @@ func (l *LinkedList)ReverRecHelper(node *Node, nextNode *Node)*Node{
 	node.next = nil
 	return newHead
 }
+
+
+
 
 func main() {
 	list := LinkedList{}
