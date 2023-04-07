@@ -2,7 +2,8 @@ package main
 
 import "fmt"
 
-func insertionSort(arr [10]int) {
+func insertionSort(arr []int) {
+
 	for i := 1; i < len(arr); i++ {
 		current := arr[i]
 		j := i - 1
@@ -13,9 +14,10 @@ func insertionSort(arr [10]int) {
 		arr[j+1] = current
 	}
 	fmt.Println(arr)
+
 }
 
 func main() {
-	var array = [10]int{6, 4, 8, 1, 5, 10, 7, 3, 9, 2}
+	var array = []int{6, 4, 8, 1, 5, 10, 7, 3, 9, 2}
 	insertionSort(array)
 }

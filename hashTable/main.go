@@ -61,7 +61,7 @@ func main() {
 	ht.insert("banana", 3)
 	ht.insert("orange", 5)
 
-	// Retrieve the value associated with a key
+	
 	val, found := ht.get("apple")
 	if found {
 		fmt.Println("apple:", val)

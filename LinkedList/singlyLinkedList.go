@@ -80,9 +80,25 @@ func (l *LinkedList) insertion(nextTo int, data int) {
 	temp.next = newNode
 }
 
-func(l *LinkedList)test(){
 
+func (l *LinkedList)ReverRec(){
+	if l.head == nil{
+		return
+	}
+	l.head = l.ReverRecHelper(l.head, l.head.next)
 }
+
+func (l *LinkedList)ReverRecHelper(node *Node, nextNode *Node)*Node{
+	if nextNode == nil{
+		// l.tail = node
+		return node
+	}
+	newHead := l.ReverRecHelper(nextNode, nextNode.next)
+	nextNode.next = node
+	node.next = nil
+	return newHead
+}
+
 
 func main() {
 	list := LinkedList{}

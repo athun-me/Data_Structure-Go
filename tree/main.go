@@ -106,18 +106,36 @@ func (t *tree) getMin(currentNode *Node) int {
 	}
 }
 
+func (t *tree) inOder() {
+	t.inOderHelper(t.root)
+	fmt.Println()
+}
+func (t *tree) inOderHelper(Node *Node) {
+	if Node == nil {
+		return
+	}
+	t.inOderHelper(Node.left)
+	fmt.Printf("%d ", Node.data)
+	t.inOderHelper(Node.right)	
+}
+
 func main() {
 	t := tree{}
 
-	t.insert(10)
-	t.insert(1)
-	t.insert(2)
-	t.insert(3)
-	t.insert(9)
-	t.insert(22)
+	t.insert(50)
+	t.insert(80)
+	t.insert(20)
+	t.insert(70)
+	t.insert(90)
+	t.insert(60)
+	t.insert(71)
+	t.insert(68)
 
-	t.delete(3)
+	t.inOder()
 
-	fmt.Println(t.contains(3))
+	// t.delete(50)
+
+	// t.inOder()
+	// fmt.Println(t.contains(3))
 
 }

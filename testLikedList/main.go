@@ -35,6 +35,7 @@ func (l *LinkedList) printNode() {
 }
 
 func (l *LinkedList) deleteGivenValue(data int) {
+	
 	for l.head != nil && l.head.data == data {
 		l.head = l.head.next
 	}
