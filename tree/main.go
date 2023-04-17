@@ -69,7 +69,7 @@ func (t *tree) deleteHelper(data int, currendNode *Node, parentNode *Node) {
 		} else {
 			if currendNode.left != nil && currendNode.right != nil {
 				currendNode.data = t.getMin(currendNode.right)
-				t.deleteHelper(currendNode.data, currendNode.right, currendNode)
+				t.deleteHelper (currendNode.data, currendNode.right, currendNode)
 			} else {
 				if parentNode == nil {
 					if currendNode.right == nil {
