@@ -15,32 +15,35 @@ func buildHeap(arr []int) {
 		shiftDown(i)
 	}
 }
-
-func shiftDown(currendIdx int) {
-
+func shiftDown(currentIdx int) {
 	endIdx := len(heap) - 1
-	leftIdx := leftCHild(currendIdx)
-	var idxToShift int
-	for leftIdx <= endIdx {
-		rightIdx := rightChild(currendIdx)
-		if rightIdx <= endIdx && heap[rightIdx] < heap[leftIdx] {
+
+	for currentIdx >= 0 {
+		leftIdx := leftCHild(currentIdx)
+		rightIdx := rightChild(currentIdx)
+
+		idxToShift := leftIdx
+		if rightIdx <= endIdx && heap[rightIdx] > heap[leftIdx] {
 			idxToShift = rightIdx
-		} else {
+		}else{
 			idxToShift = leftIdx
 		}
-		if heap[currendIdx] > heap[idxToShift] {
-			swap(heap, currendIdx, idxToShift)
-			currendIdx = idxToShift
-			leftIdx = leftCHild(currendIdx)
+
+		if idxToShift <= endIdx && heap[idxToShift] > heap[currentIdx] {
+			swap(heap, idxToShift, currentIdx)
+			currentIdx = idxToShift
 		} else {
 			return
 		}
 	}
 }
 
+
 func peak() {
 	fmt.Println(heap[0])
 }
+
+
 
 func shiftUp(currentIdx int) {
 	parentIdx := parent(currentIdx)
@@ -63,8 +66,9 @@ func insert(value int) {
 
 func display(arr []int) {
 	for i := 0; i < len(arr); i++ {
-		fmt.Println(arr[i])
+		fmt.Print(arr[i], " ")
 	}
+	fmt.Println()
 }
 
 func swap(arr []int, i int, j int) {
@@ -81,14 +85,15 @@ func rightChild(i int) int {
 }
 
 func main() {
-	heap = []int{6, 2, 8}
+	heap = []int{12, 3, 4, 100, 321, 943, 1, 2}
 	display(heap)
 	fmt.Println()
-	insert(1)
-	insert(5)
-	insert(7)
-	display(heap)
-	remove()
+	buildHeap(heap)
+	// insert(1)
+	// insert(5)
+	// insert(7)
+	// display(heap)
+	// remove()
 	fmt.Println()
 	display(heap)
 }

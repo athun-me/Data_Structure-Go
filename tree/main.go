@@ -69,7 +69,7 @@ func (t *tree) deleteHelper(data int, currendNode *Node, parentNode *Node) {
 		} else {
 			if currendNode.left != nil && currendNode.right != nil {
 				currendNode.data = t.getMin(currendNode.right)
-				t.deleteHelper (currendNode.data, currendNode.right, currendNode)
+				t.deleteHelper(currendNode.data, currendNode.right, currendNode)
 			} else {
 				if parentNode == nil {
 					if currendNode.right == nil {
@@ -116,26 +116,25 @@ func (t *tree) inOderHelper(Node *Node) {
 	}
 	t.inOderHelper(Node.left)
 	fmt.Printf("%d ", Node.data)
-	t.inOderHelper(Node.right)	
+	t.inOderHelper(Node.right)
 }
 
 func main() {
 	t := tree{}
 
-	t.insert(50)
-	t.insert(80)
+	t.insert(11)
 	t.insert(20)
-	t.insert(70)
-	t.insert(90)
-	t.insert(60)
-	t.insert(71)
-	t.insert(68)
+	t.insert(10)
+	t.insert(5)
+	t.insert(25)
+	t.insert(21)
+	t.insert(3)
 
 	t.inOder()
 
-	// t.delete(50)
+	t.delete(20)
 
-	// t.inOder()
+	t.inOder()
 	// fmt.Println(t.contains(3))
 
 }

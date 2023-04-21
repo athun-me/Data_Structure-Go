@@ -2,119 +2,61 @@ package main
 
 import "fmt"
 
-type Node struct {
-	data  int
-	left  *Node
-	right *Node
+var heap []int
+
+func leftChild(i int) int {
+	return (2 * i) + 1
+}
+func rightChild(i int) int {
+	return (2 * i) + 2
+}
+func swap(arr []int, i int, j int) {
+	arr[i], arr[j] = arr[j], arr[i]
 }
 
-type Tree struct {
-	root *Node
-}
+func shiftDown(currentIdx int, endIdx int) {
 
-func (t *Tree) insert(data int) {
-	newNode := &Node{data, nil, nil}
-	currentNode := t.root
-	if currentNode == nil {
-		t.root = newNode
-		return
-	}
-	for currentNode != nil {
-		if data < currentNode.data {
-			if currentNode.left == nil {
-				currentNode.left = newNode
-				return
-			} else {
-				currentNode = currentNode.left
-			}
+	leftIdx := leftChild(currentIdx)
+	var idxToShift int
+
+	for leftIdx <= endIdx {
+
+		rightIdx := rightChild(currentIdx)
+
+		if rightIdx <= endIdx && heap[rightIdx] > heap[leftIdx] {
+			idxToShift = rightIdx
 		} else {
-			if currentNode.right == nil {
-				currentNode.right = newNode
-				return
-			} else {
-				currentNode = currentNode.right
-			}
+			idxToShift = leftIdx
+		}
+
+		if heap[idxToShift] > heap[currentIdx] {
+			swap(heap, currentIdx, idxToShift)
+			currentIdx = idxToShift
+			leftIdx = leftChild(currentIdx)
+		} else {
+			return
 		}
 	}
 }
 
-func (t *Tree) inOder() {
-	t.inOderHelper(t.root)
-	fmt.Println()
-}
-func (t *Tree) inOderHelper(currentNode *Node) {
-	if currentNode == nil {
-		return
-	}
-	t.inOderHelper(currentNode.left)
-	fmt.Printf("%d ", currentNode.data)
-	t.inOderHelper(currentNode.right)
-}
-
-func (t *Tree) remove(data int) {
-	t.removeHelper(data, t.root, nil)
-}
-func (t *Tree) removeHelper(data int, currentNode *Node, parentNode *Node) {
-	for currentNode != nil {
-		if data < currentNode.data {
-			currentNode = currentNode.left
-		} else if data > currentNode.data {
-			currentNode = currentNode.right
-		} else {
-			if currentNode.left != nil && currentNode.right != nil {
-				currentNode.data = t.getMin(currentNode.right)
-				t.removeHelper(currentNode.data, currentNode.right, currentNode)
-			} else {
-				if parentNode == nil {
-					if currentNode.left == nil {
-						t.root = currentNode.right
-					} else {
-						t.root = currentNode.left
-					}
-				} else {
-					if parentNode.left == currentNode {
-						if currentNode.left == nil {
-							parentNode.left = currentNode.right
-						} else {
-							parentNode.left = currentNode.left
-						}
-					} else {
-						if currentNode.left == nil {
-							parentNode.right = currentNode.right
-						} else {
-							parentNode.right = currentNode.left
-						}
-					}
-				}
-			}
-			break
-		}
+func buildHeap(arr []int, l int) {
+	heap = arr
+	for i := l; i >= 0; i-- {
+		shiftDown(i, l)
 	}
 }
 
-func (t *Tree) getMin(currentNode *Node) int {
-	if currentNode.left == nil {
-		return currentNode.data
-	} else {
-		return t.getMin(currentNode.left)
+func heapSort(arr []int) {
+	buildHeap(arr, len(arr)-1)
+	for i := len(arr) - 1; i > 0; i-- {
+		swap(arr, 0, i)
+		buildHeap(arr, i-1)
 	}
 }
 
 func main() {
-	tree := Tree{}
-
-	tree.insert(11)
-	tree.insert(20)
-	tree.insert(10)
-	tree.insert(5)
-	tree.insert(25)
-	tree.insert(21)
-	tree.insert(3)
-
-	tree.inOder()
-
-	tree.remove(20)
-
-	tree.inOder()
-
+	arr := []int{4, 3, 2, 1, 5, 6}
+	
+	heapSort(arr)
+	fmt.Println(arr)
 }
