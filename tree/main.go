@@ -97,7 +97,7 @@ func (t *tree) deleteHelper(data int, currendNode *Node, parentNode *Node) {
 		}
 	}
 }
-
+  
 func (t *tree) getMin(currentNode *Node) int {
 	if currentNode.left == nil {
 		return currentNode.data

@@ -85,7 +85,7 @@ func rightChild(i int) int {
 }
 
 func main() {
-	heap = []int{12, 3, 4, 100, 321, 943, 1, 2}
+	heap = []int{4, 2, 3, 1, 7, 6, 5}
 	display(heap)
 	fmt.Println()
 	buildHeap(heap)

@@ -27,6 +27,7 @@ func (g *Graph) insert(vertex int, edge int, isBidirectional bool) {
 
 }
 
+
 func (g *Graph) display() {
 	for vertex, edges := range g.adjList {
 		fmt.Printf("%d :", vertex)
@@ -37,41 +38,6 @@ func (g *Graph) display() {
 			}
 		}
 		fmt.Println()
-	}
-}
-
-// Graph node struct
-type GraphNode struct {
-	val       int
-	neighbors []*GraphNode
-}
-
-// Breadth-first search traversal
-func BFS(node *GraphNode) {
-	queue := []*GraphNode{node}
-	visited := make(map[*GraphNode]bool)
-	visited[node] = true
-	for len(queue) > 0 {
-		curr := queue[0]
-		queue = queue[1:]
-		fmt.Println(curr.val)
-		for _, neighbor := range curr.neighbors {
-			if !visited[neighbor] {
-				visited[neighbor] = true
-				queue = append(queue, neighbor)
-			}
-		}
-	}
-}
-
-// Depth-first search traversal
-func DFS(node *GraphNode, visited map[*GraphNode]bool) {
-	visited[node] = true
-	fmt.Println(node.val)
-	for _, neighbor := range node.neighbors {
-		if !visited[neighbor] {
-			DFS(neighbor, visited)
-		}
 	}
 }
 

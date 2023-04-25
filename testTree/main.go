@@ -23,21 +23,7 @@ func (t *tree) insert(data int) {
 		return
 	}
 	for true {
-		if data < currentNode.data {
-			if currentNode.left == nil {
-				currentNode.left = newNode
-				return
-			} else {
-				currentNode = currentNode.left
-			}
-		} else {
-			if currentNode.right == nil {
-				currentNode.right = newNode
-				break
-			} else {
-				currentNode = currentNode.right
-			}
-		}
+		
 	}
 }
 
