@@ -6,6 +6,7 @@ import (
 )
 
 func findNumber(arr []int){
+	
 	len := len(arr)-1
 	for i:=0; i<len-1; i++{
 		for j:= i+1; j<len; j++{
