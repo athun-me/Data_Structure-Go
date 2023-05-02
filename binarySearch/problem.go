@@ -29,12 +29,12 @@ func binaryRecHelper(array [10]int, target int, startIdx int, endIdx int) int {
 	if startIdx > endIdx {
 		return -1
 	}
-	
+
 	if array[middleValue] == target {
 		return middleValue
-	}else if array[middleValue] < target {
+	} else if array[middleValue] < target {
 		return binaryRecHelper(array, target, middleValue+1, endIdx)
-	}else{
+	} else {
 		return binaryRecHelper(array, target, startIdx, middleValue-1)
 	}
 
