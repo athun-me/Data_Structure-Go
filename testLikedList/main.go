@@ -44,6 +44,47 @@ func (l *ListNode) deleteNode(val int) {
 
 }
 
+func (l *ListNode) insertAfter(val int, data int) {
+	newNode := &Node{Val: data, Next: nil}
+
+	if l.head.Val == val {
+		newNode.Next = l.head.Next
+		l.head.Next = newNode
+		return
+	}
+
+	cur := l.head
+
+	for cur.Next != nil {
+		if cur.Val == val {
+			newNode.Next = cur.Next
+			cur.Next = newNode
+			return
+		}
+		cur = cur.Next
+	}
+	cur.Next = newNode
+}
+
+func (l *ListNode) insertAtBeginningAtaValu(val int, data int) {
+	newNode := &Node{Val: data, Next: nil}
+	if l.head.Val == val {
+		newNode.Next = l.head
+		l.head = newNode
+		return
+	}
+	cur := l.head
+	for cur.Next != nil {
+		if cur.Next.Val == val {
+			newNode.Next = cur.Next
+			cur.Next = newNode
+			return
+		}
+		cur = cur.Next
+	}
+
+}
+
 func (l *ListNode) insertAtBeginning(val int) {
 	newNode := &Node{Val: val, Next: nil}
 	if l.head != nil {
@@ -69,12 +110,10 @@ func main() {
 	list.insert(40)
 	list.insert(50)
 
-	list.display()
-
-	fmt.Println("------------------")
 	// list.insertAtBeginning(200)
 	// list.deleteNode(50)
-
+	// list.insertAtBeginningAtaValu(50, 2000)
+	list.insertAfter(50, 200)
 	list.display()
 
 }
