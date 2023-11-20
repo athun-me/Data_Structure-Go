@@ -102,6 +102,29 @@ func (l *ListNode) display() {
 	}
 }
 
+func (l *ListNode) swap(val int) {
+	if l.head.Val == val {
+		temp := l.head.Next
+		l.head.Next = l.head.Next.Next
+		temp.Next = l.head
+		l.head = temp
+		return
+	}
+
+	cur := l.head
+
+	for cur.Next.Next != nil {
+		if cur.Next.Val == val {
+			temp := cur.Next.Next
+			cur.Next.Next = temp.Next
+			temp.Next = cur.Next
+			cur.Next = temp
+			return
+		}
+		cur = cur.Next
+	}
+}
+
 func main() {
 	list := ListNode{}
 	list.insert(10)
@@ -113,7 +136,8 @@ func main() {
 	// list.insertAtBeginning(200)
 	// list.deleteNode(50)
 	// list.insertAtBeginningAtaValu(50, 2000)
-	list.insertAfter(50, 200)
+	// list.insertAfter(50, 200)
+	list.swap(50)
 	list.display()
 
 }
