@@ -5,72 +5,76 @@ import (
 )
 
 type Node struct {
-	data int
-	next *Node
+	Val  int
+	Next *Node
 }
 
-type LinkedList struct {
+type ListNode struct {
 	head *Node
-	tail *Node
 }
 
-func (l *LinkedList) AddNode(data int) {
-	newNode := &Node{data, nil}
+func (l *ListNode) insert(val int) {
+	newNode := &Node{Val: val, Next: nil}
+
 	if l.head == nil {
 		l.head = newNode
-		l.tail = newNode
-	} else {
-		l.tail.next = newNode
-		l.tail = newNode
+		return
 	}
-}
-
-//displaying the elements in the list
-func (l *LinkedList) printNode() {
-	currentNode := l.head
-	for currentNode != nil {
-		fmt.Printf("%d\n", currentNode.data)
-		currentNode = currentNode.next
-	}
-}
-
-func (l *LinkedList) deleteGivenValue(data int) {
-	
-	for l.head != nil && l.head.data == data {
-		l.head = l.head.next
-	}
-
 	curr := l.head
+	for curr.Next != nil {
+		curr = curr.Next
+	}
+	curr.Next = newNode
+}
+func (l *ListNode) deleteNode(val int) {
+	if l.head.Val == val {
+		l.head = l.head.Next
+		return
+	}
 
-	for curr.next != nil {
-		if curr.next.data == data {
-			curr.next = curr.next.next
-		}else{
-			curr = curr.next
+	cur := l.head
+
+	for cur.Next != nil {
+		if cur.Next.Val == val {
+			cur.Next = cur.Next.Next
+			return
 		}
+		cur = cur.Next
+	}
+
+}
+
+func (l *ListNode) insertAtBeginning(val int) {
+	newNode := &Node{Val: val, Next: nil}
+	if l.head != nil {
+		newNode.Next = l.head
+		l.head = newNode
 	}
 }
 
+func (l *ListNode) display() {
+	cur := l.head
+
+	for cur != nil {
+		fmt.Println(cur.Val)
+		cur = cur.Next
+	}
+}
 
 func main() {
-	list := LinkedList{}
-	list.AddNode(10)
-	list.AddNode(20)
-	list.AddNode(10)
-	list.AddNode(10)
-	list.AddNode(10)
+	list := ListNode{}
+	list.insert(10)
+	list.insert(20)
+	list.insert(30)
+	list.insert(40)
+	list.insert(50)
 
-	list.AddNode(30)
-	list.AddNode(10)
-	list.AddNode(15)
-	list.AddNode(10)
+	list.display()
 
-	list.AddNode(10)
+	fmt.Println("------------------")
+	// list.insertAtBeginning(200)
+	// list.deleteNode(50)
 
-	list.printNode()
-
-	list.deleteGivenValue(10)
-	fmt.Println()
-	list.printNode()
+	list.display()
 
 }
