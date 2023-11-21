@@ -150,6 +150,32 @@ func merge(list1 *Node, list2 *Node) *Node {
 
 	return res.Next
 }
+func (l *ListNode) revers() {
+	curr := l.head
+	var prev *Node = nil
+
+	for curr != nil {
+		temp := curr.Next
+		curr.Next = prev
+		prev = curr
+		curr = temp
+	}
+	l.head = prev
+}
+
+func (l *ListNode) recursiveReverse() {
+	l.head = recursiveReverse(l.head, nil)
+}
+
+func recursiveReverse(curr *Node, prev *Node) *Node {
+	if curr == nil {
+		return prev
+	}
+
+	next := curr.Next
+	curr.Next = prev
+	return recursiveReverse(next, curr)
+}
 
 func x(arr1 []int, arr2 []int) []int {
 	res := []int{}
