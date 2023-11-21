@@ -125,6 +125,56 @@ func (l *ListNode) swap(val int) {
 	}
 }
 
+func merge(list1 *Node, list2 *Node) *Node {
+	res := &Node{}
+	curr := res
+
+	for list1 != nil && list2 != nil {
+		if list1.Val <= list2.Val {
+			curr.Next = &Node{Val: list1.Val, Next: nil}
+			list1 = list1.Next
+		} else {
+			curr.Next = &Node{Val: list2.Val, Next: nil}
+			list2 = list2.Next
+		}
+
+		curr = curr.Next
+	}
+	if list1 != nil {
+		curr = list1
+	}
+
+	if list2 != nil {
+		curr = list2
+	}
+
+	return res.Next
+}
+
+func x(arr1 []int, arr2 []int) []int {
+	res := []int{}
+	i := 0
+	j := 0
+	for i < len(arr1) && j < len(arr2) {
+		if arr1[i] <= arr2[j] {
+			res = append(res, arr1[i])
+			i++
+		} else {
+			res = append(res, arr2[j])
+			j++
+		}
+	}
+	if i != len(arr1)-1 {
+		res = append(res, arr1[i:]...)
+	}
+	if j != len(arr2)-1 {
+		res = append(res, arr2[j:]...)
+	}
+
+	return res
+
+}
+
 func main() {
 	list := ListNode{}
 	list.insert(10)
