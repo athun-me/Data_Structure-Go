@@ -177,6 +177,30 @@ func recursiveReverse(curr *Node, prev *Node) *Node {
 	return recursiveReverse(next, curr)
 }
 
+func removeNthFromEnd(head *Node, n int) *Node {
+	temp := head
+	length := 0
+	for temp != nil {
+		length++
+		temp = temp.Next
+	}
+
+	if length == n {
+		head = head.Next
+		return head
+	}
+
+	i := 1
+	cur := head
+	for i != length-n {
+		i++
+		cur = cur.Next
+	}
+
+	cur.Next = cur.Next.Next
+
+	return head
+}
 func x(arr1 []int, arr2 []int) []int {
 	res := []int{}
 	i := 0
