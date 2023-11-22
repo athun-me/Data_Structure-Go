@@ -177,6 +177,31 @@ func recursiveReverse(curr *Node, prev *Node) *Node {
 	return recursiveReverse(next, curr)
 }
 
+func concatenateLists(lists []*Node) *Node {
+	head := lists[0]
+	var list *Node
+	var end *Node
+	for _, list = range lists {
+		if end != nil {
+			end.Next = list
+			end = nil
+		}
+		for list.Next != nil {
+			list = list.Next
+		}
+		if list.Next == nil {
+			end = list
+		}
+
+	}
+
+	for head != nil {
+		fmt.Println(head.Val)
+		head = head.Next
+	}
+	return nil
+}
+
 func removeNthFromEnd(head *Node, n int) *Node {
 	temp := head
 	length := 0
