@@ -2,77 +2,37 @@ package main
 
 import "fmt"
 
-func test(arr [4]int) {
-	myset := make(map[int]int)
+func insesrtSort(arr []int) {
+	n := len(arr)
+	for i := 1; i < n; i++ {
+		key := arr[i]
+		j := i - 1
+		for j >= 0 && arr[j] > key {
+			arr[j+1] = arr[j]
+			j--
+		}
+		arr[j+1] = key
+	}
+}
+func bubbleSort(arr []int) {
 
-	for i := 0; i < len(arr)-1; i++ {
-		count := 1
-		for j := i + 1; j < len(arr); j++ {
-			if _, ok := myset[arr[i]]; ok == false {
-				if arr[i] == arr[j] {
-					count++
-				}
+	n := len(arr)
+	for i := 0; i < n-1; i++ {
+		for j := 0; j < n-1-i; j++ {
+			if arr[j] < arr[j+1] {
+				arr[j], arr[j+1] = arr[j+1], arr[j]
 			}
 		}
-		myset[arr[i]] = count
+
 	}
-	fmt.Println(myset)
 }
-
-func test2(arr [7]int) {
-
-	myset := make(map[int]int)
-
-	for i := 0; i < len(arr); i++ {
-		myset[arr[i]]++
-	}
-	fmt.Println(myset)
-}
-
-func searchInsert(nums []int, target int) int {
-    start := 0
-    end := len(nums) - 1
-    
-    for start <= end {
-        middle := (start + end) / 2
-        
-        if nums[middle] == target {
-            return middle
-        } else if nums[middle] > target {
-            end = middle - 1
-        } else {
-            start = middle + 1
-        }
-    }
-    
-    return start
-}
-
 
 func main() {
-	// var array = [4]int{1,3,5,6}
-	// start := searchInsert(array[:],5)
-	// fmt.Println(start)
+	arr := []int{8, 8, 9, 4, 5, 6, 1, 7, 2, 3, 3}
 
-	c:=r(2)
-	fmt.Println(c)
-}
+	fmt.Println("Unsorted array:", arr)
 
-// func (n int){
-// 	var i,j,k, count = 0
-// 	for i=n/2; i<=n; i++{
-// 			for k=1; k<=n; k++{
-// 				for j=1; j<=n; 2*j{
-// 					count++
-// 			}
-// 		}
-// 	}
-// }
+	bubbleSort(arr)
 
-func r(n int)int{
-
-	if n<=0 {
-		return 1
-	}
-	return 1+ r(n-1)
+	fmt.Println("Sorted array:", arr)
 }
