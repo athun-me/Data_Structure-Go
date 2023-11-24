@@ -4,66 +4,67 @@ import "fmt"
 
 type Node struct {
 	Val   int
-	left  *Node
-	right *Node
+	Left  *Node
+	Right *Node
 }
+
 type Tree struct {
 	root *Node
 }
 
 func (t *Tree) insert(val int) {
-	newNode := &Node{Val: val, left: nil, right: nil}
 	if t.root == nil {
-		t.root = newNode
-
+		t.root = &Node{Val: val, Left: nil, Right: nil}
 	} else {
-		insertHelper(t.root, val)
+		insert(t.root, val)
 	}
-
 }
-func insertHelper(root *Node, val int) {
-	newNoe := &Node{Val: val, left: nil, right: nil}
-	if val < root.Val {
-		if root.left == nil {
-			root.left = newNoe
+
+func insert(root *Node, val int) {
+	if root.Val < val {
+		if root.Right == nil {
+			root.Right = &Node{Val: val, Left: nil, Right: nil}
 		} else {
-			insertHelper(root.left, val)
+			insert(root.Right, val)
 		}
 	} else {
-		if root.right == nil {
-			root.right = newNoe
+		if root.Left == nil {
+			root.Left = &Node{Val: val, Left: nil, Right: nil}
 		} else {
-			insertHelper(root.right, val)
+			insert(root.Left, val)
 		}
 	}
 }
-func (t *Tree) inOrderTravers(root1 *Node, root2 *Node) bool {
-	if root1 == nil && root2 == nil {
-		return true
-	}
 
-	if root1 == nil || root2 == nil {
-		return false
+func (t *Tree) inOrderTravers(root *Node) {
+	if root != nil {
+		t.inOrderTravers(root.Left)
+		fmt.Println(root.Val)
+		t.inOrderTravers(root.Right)
 	}
-	return (root1.Val == root2.Val) && t.inOrderTravers(root1.left, root2.left) && t.inOrderTravers(root1.right, root2.right)
+}
 
+func (t *Tree) preeOrder(root *Node) {
+	if root != nil {
+		fmt.Println(root.Val)
+		t.preeOrder(root.Left)
+		t.preeOrder(root.Right)
+	}
+}
+
+func (t *Tree) PostOrder(root *Node) {
+	if root != nil {
+		t.PostOrder(root.Left)
+		t.PostOrder(root.Right)
+		fmt.Println(root.Val)
+	}
 }
 
 func main() {
-	tree := Tree{}
-	values := []int{1, 2, 1}
-	for _, value := range values {
-		tree.insert(value)
+	arr := []int{4, 2, 3, 5, 6, 9, 8, 7, 1}
+	t := &Tree{}
+	for _, val := range arr {
+		t.insert(val)
 	}
-	tree2 := Tree{}
-	values2 := []int{1, 1, 2}
-	for _, value := range values2 {
-		tree2.insert(value)
-	}
-
-	if tree.inOrderTravers(tree.root, tree2.root) {
-		fmt.Println("true")
-	} else {
-		fmt.Println("false")
-	}
+	t.PostOrder(t.root)
 }
