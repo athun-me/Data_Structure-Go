@@ -45,7 +45,7 @@ func (n *Node) insert(newNode *Node) {
 func inOrder(node *Node) {
 	if node != nil {
 		inOrder(node.left)
-		fmt.Println(node.val)
+		fmt.Println(node)
 		inOrder(node.right)
 	}
 }
@@ -139,6 +139,57 @@ func preOrder(root *Node) {
 	}
 }
 
+func kthsmallets(root *Node, k int) int {
+	var res int
+	count := 0
+	inOrderTraversal(root, &count, &k, &res)
+	return res
+}
+func inOrderTraversal(root *Node, count, k, result *int) {
+
+	if root == nil {
+		return
+	}
+
+	inOrderTraversal(root.left, count, k, result)
+	*count++
+	if *k == *count {
+		*result = root.val
+		return
+	}
+	inOrderTraversal(root.right, count, k, result)
+
+}
+
+func deletion(root *Node, val int) *Node {
+	if root == nil {
+		return nil
+	}
+
+	if root.val > val {
+		root.left = deletion(root.left, val)
+	} else if root.val < val {
+		root.right = deletion(root.right, val)
+	} else {
+		if root.left == nil {
+			return root.right
+		} else if root.right == nil {
+			return root.left
+		}
+
+		root.val = findMin(root.right)
+		root.right = deletion(root.right, root.val)
+	}
+	return root
+}
+
+func findMin(node *Node) int {
+	for node.left != nil {
+		node = node.left
+	}
+	return node.val
+}
+
 func main() {
 
 	tree := &TreeNode{}
@@ -149,5 +200,8 @@ func main() {
 	tree.insert(3)
 	tree.insert(9)
 	tree.insert(6)
-	preOrder(tree.root)
+	// fmt.Println(kthsmallets(tree.root, 3))
+
+	inOrder(deletion(tree.root, 4))
+
 }
